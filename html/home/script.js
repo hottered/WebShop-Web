@@ -1,9 +1,9 @@
 // script.js
 
-const apiUrl = 'https://localhost:7276/api/Product'; 
+const apiUrl = 'http://localhost:5291/api/Product'; 
 
 function fetchCategories() {
-    fetch('https://localhost:7276/api/Category')
+    fetch('http://localhost:5291/api/Category')
         .then(response => response.json())
         .then(categories => {
             const activeCategories = categories.filter(cat => !cat.deletedAtUtc);
@@ -41,7 +41,7 @@ function displayCategories(categories) {
         button.dataset.categoryId = category.id; 
         button.addEventListener('click', async () => {
             const categoryId = category.id;
-            const url = `https://localhost:7276/api/Product/category/${categoryId}/products`;
+            const url = `http://localhost:5291/api/Product/category/${categoryId}/products`;
 
             try {
                 const response = await fetch(url);

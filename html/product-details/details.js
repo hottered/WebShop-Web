@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function fetchProductDetails(productId) {
-    const productUrl = `https://localhost:7276/api/Product/${productId}`;
+    const productUrl = `http://localhost:5291/api/Product/${productId}`;
 
     fetch(productUrl)
         .then(response => response.json())
@@ -50,7 +50,7 @@ function addToCart(productId) {
     console.log(productId)
 
     if (!existingProduct) {
-        const productUrl = `https://localhost:7276/api/Product/${productId}`;
+        const productUrl = `http://localhost:5291/api/Product/${productId}`;
 
         fetch(productUrl)
             .then(response => response.json())
