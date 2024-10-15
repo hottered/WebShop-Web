@@ -28,7 +28,7 @@ function handleCheckout() {
     };
 
     // Pošalji POST zahtev na backend
-    fetch(`http://localhost:5291/api/Order`, {  // Zameni sa URL-om API-ja
+    fetch(`http://burp.local:5291/api/Order`, {  // Zameni sa URL-om API-ja
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

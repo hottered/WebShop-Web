@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         try {
             // Make the POST request to the authenticate API
-            const response = await fetch('http://localhost:5291/api/User/authenticate', {
+            const response = await fetch('http://burp.local:5291/api/User/authenticate', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
