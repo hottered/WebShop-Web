@@ -5,13 +5,23 @@ document.addEventListener('DOMContentLoaded', () => {
     checkoutButton.addEventListener('click', handleCheckout);
 });
 
-function handleCheckout() {
+async function handleCheckout() {
     // Učitaj korisnika i korpu iz localStorage-a
     const user = JSON.parse(localStorage.getItem('user'));
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
 
     if (!user || cart.length === 0) {
         alert('No user logged in or the cart is empty.');
+        return;
+    }
+
+    // Učitaj vrednosti iz input polja za adresu
+    const country = document.getElementById('country').value;
+    const state = document.getElementById('city').value;
+    const zipCode = document.getElementById('zip').value;
+
+    if (!country || !state || !zipCode) {
+        alert('Please fill out all address fields.');
         return;
     }
 
@@ -24,28 +34,63 @@ function handleCheckout() {
     // Kreiraj objekat request-a
     const requestData = {
         userId: user.id,  // Pretpostavljam da korisnik ima 'id'
-        orderItems: orderItems
+        orderItems: orderItems,
+        country: country,
+        state: state,
+        zipCode: zipCode
     };
 
-    // Pošalji POST zahtev na backend
-    fetch(`http://burp.local:5291/api/Order`, {  // Zameni sa URL-om API-ja
+    const response = await fetch(`http://burp.local:5291/api/Order`, {  // Zameni sa URL-om API-ja
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(requestData),
     })
-    .then(response => response.json())
-    .then(data => {
-        console.log('Order successful:', data);
-        alert('Order placed successfully!');
-        localStorage.removeItem('cart'); // Isprazni korpu nakon uspešnog checkout-a
-        displayCartItems(); // Osveži UI nakon narudžbine
-    })
-    .catch(error => {
-        console.error('Error placing order:', error);
-        alert('There was an error placing the order.');
-    });
+
+    if (response.ok) {
+        // Prikaži tekst za preuzimanje
+        document.getElementById('downloadSection').style.display = 'block';
+
+        // Kada korisnik klikne na link, preuzmi PDF
+        document.getElementById('downloadLink').onclick = async (event) => {
+            event.preventDefault(); // Spreči standardno ponašanje linka
+
+            const pdfBlob = await response.blob();
+            const url = window.URL.createObjectURL(pdfBlob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = 'order_summary.pdf'; // Ime datoteke
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+
+            localStorage.removeItem('cart'); // Isprazni korpu nakon uspešnog checkout-a
+            displayCartItems(); // Osveži UI nakon narudžbine
+        };
+    } else {
+        console.error('Greška prilikom generisanja PDF-a');
+    }
+    // Pošalji POST zahtev na backend
+    // fetch(`http://burp.local:5291/api/Order`, {  // Zameni sa URL-om API-ja
+    //     method: 'POST',
+    //     headers: {
+    //         'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify(requestData),
+    // })
+    // .then(response => response.json())
+    // .then(data => {
+    //     console.log('Order successful:', data);
+    //     alert('Order placed successfully!');
+    //     localStorage.removeItem('cart'); // Isprazni korpu nakon uspešnog checkout-a
+    //     displayCartItems(); // Osveži UI nakon narudžbine
+    // })
+    // .catch(error => {
+    //     console.error('Error placing order:', error);
+    //     alert('There was an error placing the order.');
+    // });
 }
 
 function displayCartItems() {

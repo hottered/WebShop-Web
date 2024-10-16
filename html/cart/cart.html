@@ -32,21 +32,15 @@
                     <input type="text" id="city" placeholder="State / City">
                     <label for="zip">ZIP Code</label>
                     <input type="text" id="zip" placeholder="ZIP Code">
-                    <button type="button">Update</button>
                 </form>
             </div>
 
-            <div class="coupon">
-                <h3>Coupon Code</h3>
-                <input type="text" placeholder="Coupon Code">
-                <button type="button">Apply</button>
-            </div>
-
             <div class="cart-total">
-                <p>Cart Subtotal: <span id="cart-subtotal">$0.00</span></p>
-                <p>Discount: <span>-$4.00</span></p>
                 <p><strong>Cart Total: <span id="cart-total">$0.00</span></strong></p>
                 <button>Checkout</button>
+                <div id="downloadSection" style="display:none;">
+                    <a id="downloadLink" href="#" download="order_summary.pdf">Preuzmi PDF</a>
+                </div>
             </div>
         </div>
     </div>
