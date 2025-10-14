@@ -129,6 +129,7 @@ function displayCartItems() {
 
             // Količina proizvoda sa dugmadima
             const quantityContainer = document.createElement('div');
+            quantityContainer.classList.add('quantity-container');
             const decreaseBtn = document.createElement('button');
             decreaseBtn.classList.add('quantity-btn');
             decreaseBtn.textContent = '-';
