@@ -122,6 +122,7 @@ function displayCartItems() {
             itemDetails.classList.add('item-details');
 
             const productName = document.createElement('p');
+            productName.classList.add('product-name');
             productName.textContent = item.name;
 
             const productPrice = document.createElement('p');
@@ -193,6 +194,11 @@ function decreaseQuantity(index) {
         cart[index].quantity -= 1;
         localStorage.setItem('cart', JSON.stringify(cart));
         displayCartItems(); // Update UI after change
+    } else {
+        // Remove the item from the cart if quantity is 1
+        cart.splice(index, 1);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        displayCartItems(); // Update UI after removal
     }
 }
 
