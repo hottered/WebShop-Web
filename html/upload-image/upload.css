@@ -1,4 +1,4 @@
-body {
+/* body {
     font-family: Arial, sans-serif;
     background-color: #f5f5f5;
     margin: 0;
@@ -26,14 +26,14 @@ body {
     font-size: 30px;
     cursor: pointer;
     margin: 20px auto;
-    overflow: hidden; /* Omogućava da slika ostane unutar kruga */
+    overflow: hidden; 
     position: relative;
 }
 
 .upload-circle img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Prilagođava sliku tako da popuni krug */
+    object-fit: cover;
     position: absolute;
     top: 0;
     left: 0;
@@ -59,4 +59,205 @@ button {
 
 button:hover {
     background-color: #0056b3;
+} */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* background: linear-gradient(135deg, #3b75fc 0%, #324ca4 100%); */
+    /* min-height: 100vh; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* padding: 40px 20px; */
+}
+
+#header-container {
+    width: 100%;
+    /* max-width: 600px; */
+    margin-bottom: 30px;
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 50px 40px;
+    border-radius: 24px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    max-width: 600px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.container p {
+    background: linear-gradient(135deg, #4488ef 0%, #231b9e 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin: 8px 0;
+    font-size: 15px;
+    letter-spacing: 0.3px;
+}
+
+.container p strong {
+    -webkit-text-fill-color: #333;
+    background: none;
+    margin-right: 8px;
+    font-weight: 600;
+}
+
+.container h2 {
+    font-size: 32px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #353ee3 0%, #007bff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin: 20px 0 40px 0;
+    letter-spacing: -0.5px;
+}
+
+.upload-circle {
+    width: 180px;
+    height: 180px;
+    background: linear-gradient(135deg, #667eea 0%,#007bff 100%);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin: 20px auto;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+    transition: all 0.3s ease;
+    border: 5px solid rgba(255, 255, 255, 0.3);
+}
+
+.upload-circle:hover {
+    transform: scale(1.05) translateY(-5px);
+    box-shadow: 0 20px 45px rgba(102, 126, 234, 0.5);
+}
+
+.upload-circle:active {
+    transform: scale(0.98);
+}
+
+.upload-circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+}
+
+.upload-circle span {
+    position: absolute;
+    z-index: 1;
+    font-size: 64px;
+    color: white;
+    font-weight: 300;
+    transition: transform 0.3s ease;
+}
+
+.upload-circle:hover span {
+    transform: rotate(90deg);
+}
+
+button {
+    padding: 16px 48px;
+    font-size: 16px;
+    font-weight: 600;
+    background: linear-gradient(135deg, #667eea 0%, #007bff 100%);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    margin-top: 30px;
+    /* box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4); */
+    transition: all 0.3s ease;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 35px rgba(102, 126, 234, 0.5);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+#result {
+    margin-top: 25px;
+    font-size: 15px;
+    color: #555;
+    text-align: center;
+    min-height: 30px;
+}
+
+#result p {
+    padding: 12px 24px;
+    border-radius: 12px;
+    /* background: rgba(102, 126, 234, 0.1); */
+    display: inline-block;
+}
+
+#result p[style*="color:red"],
+#result p[style*="color: red"] {
+    background: rgba(220, 53, 69, 0.1) !important;
+    color: #dc3545 !important;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+/* @media (max-width: 768px) {
+    .container {
+        padding: 40px 30px;
+    }
+
+    .container h2 {
+        font-size: 28px;
+    }
+
+    .upload-circle {
+        width: 150px;
+        height: 150px;
+    }
+
+    .upload-circle span {
+        font-size: 52px;
+    }
+
+    button {
+        padding: 14px 40px;
+        font-size: 13px;
+    }
+} */

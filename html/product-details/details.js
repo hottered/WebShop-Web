@@ -123,7 +123,7 @@ function displayProductDetails(product) {
     productImage.src = base64Image;
     productName.textContent = product.name;
     productPrice.textContent = `$${product.price}`;
-    originalPrice.textContent = `$${product.price - 200}`;
+    originalPrice.textContent = `$${product.price + 20}`;
     productDescription.textContent = product.description;
 }
 
