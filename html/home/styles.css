@@ -61,7 +61,7 @@ body {
     border-radius: 5px;
     text-align: center;
     padding: 15px;
-    height: 300px;
+    /* height: 300px; */
     display: flex;
     flex-direction: column;
     justify-content: center;
